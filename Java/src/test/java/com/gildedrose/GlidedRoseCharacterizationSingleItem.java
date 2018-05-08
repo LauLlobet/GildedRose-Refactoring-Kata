@@ -188,4 +188,31 @@ public class GlidedRoseCharacterizationSingleItem {
         GildedRose app = getGildedRoseWithSingleItem(item);
         assertThat(app.items[0].sellIn, is(expectedSellin));
     }
+
+    @Test
+    @Parameters({"-2,0",
+            "-1,0",
+            "0,0",
+            "1,0",
+            "2,0",
+            "3,0"})
+    public void
+    quality_goes_to_zero_for_backstage_pases(int intitalQuality, int expectedQuality) {
+        Item item = new Item("Backstage passes to a TAFKAL80ETC concert", 0, intitalQuality);
+        GildedRose app = getGildedRoseWithSingleItem(item);
+        assertThat(app.items[0].quality, is(expectedQuality));
+    }
+
+    @Test
+    @Parameters({"-1,-1",
+            "0,0",
+            "1,1",
+            "2,2",
+            "3,3"})
+    public void
+    sellin_decreases_by_one_when_backstage_passes_are_provided(int intitalSellin, int expectedSellin) {
+        Item item = new Item("Backstage passes to a TAFKAL80ETC concert", intitalSellin, 100);
+        GildedRose app = getGildedRoseWithSingleItem(item);
+        assertThat(app.items[0].sellIn, is(expectedSellin));
+    }
 }
